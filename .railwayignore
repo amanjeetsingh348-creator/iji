@@ -1,0 +1,7 @@
+frontend/
+backend-php/
+docs/
+*.log
+.env
+.DS_Store
+node_modules/
