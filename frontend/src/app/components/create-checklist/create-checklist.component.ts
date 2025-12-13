@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-create-checklist',
@@ -78,7 +79,7 @@ export class CreateChecklistComponent implements OnInit {
 
         console.log('Saving checklist:', payload);
 
-        this.http.post('http://localhost:8000/api/create_checklist.php', payload)
+        this.http.post(`${environment.apiUrl}/api/create_checklist.php`, payload)
             .subscribe({
                 next: (res: any) => {
                     if (res.success) {
@@ -90,7 +91,7 @@ export class CreateChecklistComponent implements OnInit {
                 },
                 error: (err) => {
                     console.error('Checklist save error:', err);
-                    alert(err.error?.message || 'Error creating checklist. Please try again.');
+                    alert(err.status === 0 ? 'Network error. Please check your connection.' : (err.error?.message || 'Error creating checklist. Please try again.'));
                 }
             });
     }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-create-plan',
@@ -180,7 +181,7 @@ export class CreatePlanComponent implements OnInit {
 
     console.log('Sending plan data:', payload);
 
-    this.http.post('http://localhost:8000/api/create_plan.php', payload)
+    this.http.post(`${environment.apiUrl}/api/create_plan.php`, payload)
       .subscribe({
         next: (response) => {
           console.log('Plan created successfully:', response);
@@ -190,7 +191,9 @@ export class CreatePlanComponent implements OnInit {
         error: (err) => {
           console.error('Error creating plan:', err);
           this.isSubmitting = false;
-          this.errorMessage = 'Failed to create plan. Please make sure the backend server is running.';
+          this.errorMessage = err.status === 0
+            ? 'Network error. Please check your connection.'
+            : 'Failed to create plan. Please try again.';
         }
       });
   }

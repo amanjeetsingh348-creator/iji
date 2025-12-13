@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-api-tester',
@@ -159,7 +160,7 @@ import { FormsModule } from '@angular/forms';
     `]
 })
 export class ApiTesterComponent {
-    apiUrl = 'http://localhost/word-tracker/backend-php/api/create_plan.php';
+    apiUrl = `${environment.apiUrl}/api/create_plan.php`;
 
     testData = {
         user_id: 1,

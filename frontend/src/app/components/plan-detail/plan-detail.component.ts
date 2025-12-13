@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ContentLoaderComponent } from '../content-loader/content-loader.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-plan-detail',
@@ -28,7 +29,7 @@ export class PlanDetailComponent implements OnInit {
 
   loadPlan(id: string) {
     this.loading = true;
-    this.http.get<any>('http://localhost:8000/api/get_plan_full_details.php?id=' + id)
+    this.http.get<any>(`${environment.apiUrl}/api/get_plan_full_details.php?id=` + id)
       .subscribe({
         next: (data) => {
           this.plan = data;
@@ -37,7 +38,7 @@ export class PlanDetailComponent implements OnInit {
         },
         error: (err) => {
           console.error('Failed to load plan', err);
-          alert('Error loading plan details');
+          alert(err.status === 0 ? 'Network error. Please check your connection.' : 'Error loading plan details');
           this.loading = false;
         }
       });
@@ -47,19 +48,20 @@ export class PlanDetailComponent implements OnInit {
     const val = parseInt(newValue, 10);
     if (isNaN(val)) return;
 
-    // Call API to update day
-    this.http.post('http://localhost:8000/api/add_progress.php', {
+    this.http.post(`${environment.apiUrl}/api/add_progress.php`, {
       plan_id: this.plan.id,
       date: day.date,
       count: val
     }).subscribe({
       next: (res: any) => {
         if (res.success) {
-          // Reload to refresh stats/progress
           this.loadPlan(this.plan.id);
         }
       },
-      error: (e) => console.error(e)
+      error: (e) => {
+        console.error(e);
+        alert(e.status === 0 ? 'Network error' : 'Failed to update progress');
+      }
     });
   }
 }

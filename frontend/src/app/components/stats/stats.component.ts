@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContentLoaderComponent } from '../content-loader/content-loader.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-stats',
@@ -52,10 +53,10 @@ export class StatsComponent implements OnInit, OnChanges {
 
     let url = '';
     if (this.planId) {
-      url = `http://localhost:8000/api/get_stats.php?plan_id=${this.planId}`;
+      url = `${environment.apiUrl}/api/get_stats.php?plan_id=${this.planId}`;
     } else {
-      const userId = localStorage.getItem('user_id') || '1'; // Default to 1 or handle login
-      url = `http://localhost:8000/api/get_global_stats.php?user_id=${userId}`;
+      const userId = localStorage.getItem('user_id') || '1';
+      url = `${environment.apiUrl}/api/get_global_stats.php?user_id=${userId}`;
     }
 
     this.http.get(url)
@@ -75,7 +76,7 @@ export class StatsComponent implements OnInit, OnChanges {
         },
         error: (err) => {
           console.error('Stats load error:', err);
-          this.error = 'Error loading stats';
+          this.error = err.status === 0 ? 'Network error. Please check your connection.' : 'Error loading stats. Please try again.';
           this.loading = false;
         }
       });

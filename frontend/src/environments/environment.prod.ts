@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://word-tracker-production.up.railway.app/api'
+    apiUrl: 'https://word-tracker-production.up.railway.app'
 };

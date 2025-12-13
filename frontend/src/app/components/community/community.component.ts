@@ -31,10 +31,7 @@ export class CommunityComponent implements OnInit {
   }
 
   fetchCommunityPlans() {
-    // Using environment.apiUrl instead of hardcoded localhost
-    const url = typeof environment !== 'undefined' && environment.apiUrl ?
-      `${environment.apiUrl}/get_community_plans.php` :
-      'http://localhost:8000/api/get_community_plans.php';
+    const url = `${environment.apiUrl}/api/get_community_plans.php`;
 
     this.http.get<any>(url).subscribe({
       next: (response) => {
@@ -47,6 +44,7 @@ export class CommunityComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching community plans:', error);
+        alert(error.status === 0 ? 'Network error. Please check your connection.' : 'Failed to load community plans');
         this.plans = [];
         this.applyFilters();
       }
