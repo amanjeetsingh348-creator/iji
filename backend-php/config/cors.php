@@ -5,7 +5,8 @@ function handleCors()
 {
     // Allow from localhost:4200 (Angular) and localhost:8000 (Self)
     $allowed_origins = [
-        'http://localhost:4200'
+        'http://localhost:4200',
+        'https://word-tracker-henna.vercel.app'
     ];
 
     $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
