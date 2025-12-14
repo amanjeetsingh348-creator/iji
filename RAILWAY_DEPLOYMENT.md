@@ -43,7 +43,7 @@ git push -u origin main
 ### 2.3 Configure Backend Service
 1. Click "+ New" → "GitHub Repo"
 2. Select your repository
-3. Set **Root Directory**: `backend-php`
+3. Set **Root Directory**: Leave empty (root)
 4. Railway will auto-detect PHP and use the `nixpacks.toml` configuration
 5. Click "Deploy"
 
@@ -80,7 +80,7 @@ git push
 ### 3.2 Create Frontend Service
 1. In Railway project, click "+ New" → "GitHub Repo"
 2. Select your repository again
-3. Set **Root Directory**: Leave empty (root)
+3. Set **Root Directory**: `frontend`
 4. Add these environment variables:
    - `NODE_VERSION`: `18`
 5. Click "Deploy"
