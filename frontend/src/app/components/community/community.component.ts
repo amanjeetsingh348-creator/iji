@@ -31,10 +31,7 @@ export class CommunityComponent implements OnInit {
   }
 
   fetchCommunityPlans() {
-<<<<<<< HEAD
     // Using environment.apiUrl instead of hardcoded localhost
-=======
->>>>>>> b3c58f5f6a070a4d83a48ac437b281081e486801
     const url = `${environment.apiUrl}/get_community_plans.php`;
 
     this.http.get<any>(url).subscribe({

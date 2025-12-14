@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { PlanEditorCalendarComponent } from './components/plan-editor-calendar/plan-editor-calendar.component';
-import { environment } from '../../../environments/environment';
+
 
 import { StatsComponent } from '../stats/stats.component';
 import { PlanEditorProgressComponent } from './components/plan-editor-progress/plan-editor-progress.component';
